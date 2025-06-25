@@ -24,7 +24,7 @@ jobs:
           node-version: '16'
           cache: 'npm'
           cache-dependency-path: 'js/package-lock.json'
-          
+
       # Step 3: Cache npm dependencies to speed up builds
       # This caches the node_modules directory between workflow runs
       - name: Cache npm packages
@@ -49,6 +49,6 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish
+        run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           npm publish project-sunbird-sunbird-telemetry-sdk-* --access public
