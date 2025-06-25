@@ -51,7 +51,7 @@ jobs:
         run: |
           # Extract version from git tag (remove 'v' prefix if present)
           VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION}
+          VERSION=${VERSION,,}
           echo "Publishing version: $VERSION"
           
           # Update package.json version
