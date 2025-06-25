@@ -40,7 +40,7 @@ jobs:
 
       # Step 4: Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       # Step 5: Build the SDK
       # This creates the bundled telemetry SDK in the dist directory
