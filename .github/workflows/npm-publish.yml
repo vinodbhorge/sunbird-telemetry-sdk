@@ -24,8 +24,7 @@ jobs:
           node-version: '16'
           cache: 'npm'
           cache-dependency-path: 'js/package-lock.json'
-          registry-url: 'https://registry.npmjs.org'
-
+          
       # Step 3: Cache npm dependencies to speed up builds
       # This caches the node_modules directory between workflow runs
       - name: Cache npm packages
@@ -46,23 +45,10 @@ jobs:
       - name: Build Telemetry SDK
         run: npm run build
 
-      # Step 6: Update package.json version to match git tag
-      - name: Update package version
-        run: |
-          # Extract version from git tag (remove 'v' prefix if present)
-          VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION,,}
-          echo "Publishing version: $VERSION"
-          
-          # Update package.json version
-          npm version $VERSION --no-git-tag-version
-          
-          # Show updated package.json
-          echo "Updated package.json:"
-          cat package.json | grep -A 5 -B 5 '"version"'
-
       # Step 7: Publish to npm registry
       - name: Publish to npm
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          npm publish project-sunbird-sunbird-telemetry-sdk-* --access public
