@@ -24,8 +24,8 @@ jobs:
           node-version: '16'
           cache: 'npm'
           cache-dependency-path: 'js/package-lock.json'
-          registry-url: 'https://registry.npmjs.org/vin-telemetry-sdk'
-          always-auth: true
+          #registry-url: 'https://registry.npmjs.org'
+          #always-auth: true
 
       # Step 3: Cache npm dependencies to speed up builds
       # This caches the node_modules directory between workflow runs
@@ -51,4 +51,6 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          npm publish vin-telemetry-sdk-* --access public
