@@ -53,4 +53,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          npm publish vin-telemetry-sdk-* --access public
+          npm publish vin-telemetry-sdk-sunbird-telementry-sdk-* --access public
